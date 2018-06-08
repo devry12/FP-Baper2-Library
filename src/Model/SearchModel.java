@@ -8,6 +8,7 @@ package Model;
 import Config.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -25,6 +26,7 @@ public class SearchModel {
     private ResultSet rsSearch;
     private ResultSet rsCategory;
     private String query;
+    
 
             public SearchModel(){
         config = new db();
@@ -78,20 +80,50 @@ public class SearchModel {
     //deklarasi kategori
     private String id_kategori;
     private String NamaKategori;
+    private List<SearchModel> kategori; 
+
+    public String getId_kategori() {
+        return id_kategori;
+    }
+
+    public void setId_kategori(String id_kategori) {
+        this.id_kategori = id_kategori;
+    }
+
+    public String getNamaKategori() {
+        return NamaKategori;
+    }
+
+    public void setNamaKategori(String NamaKategori) {
+        this.NamaKategori = NamaKategori;
+    }
     
     
     
     
-    public ResultSet categori(){
+    public List categori(){
         query = "SELECT * FROM kategori";
         
         if (config.eksekusiQuery(query, true)) {
             rsCategory = config.getRs();
+            
+            try {
+                while(rsCategory.next()){
+                    SearchModel model = new SearchModel();
+                    model.setNamaKategori(rsCategory.getString(1));
+                    model.setId_kategori(rsCategory.getString(2));
+                    kategori.add(model);
+                }
+                rsCategory.close();
+                return kategori;
+            } catch (Exception e) {
+            }
+            
         }else{
             System.out.println("Ada masalah di query");
         }
         
-        return rsCategory;
+       return null;
     }
     
 }

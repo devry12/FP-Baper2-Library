@@ -6,9 +6,12 @@
 package View;
 
 import Controller.SearchController;
+import Model.SearchModel;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,25 +19,34 @@ import java.util.logging.Logger;
  */
 public class SearchBook extends javax.swing.JFrame {
 private SearchController control;
+private String proses;
+private List<SearchModel> listcat;
+private DefaultTableModel dtm;
     /**
      * Creates new form SearchBook
      */
-
-   public void pilcat(){
-       try {
-           control.Category().next();
-           Object[] ob = new Object[3];
-           ob[0] = control.Category().getString(1);
-           kategoriitem.addItem(""+ob[0]);
-       } catch (Exception e) {
-       }
-    }
+//
+//   public void pilcat(){
+//       try {
+//           control.Category().next();
+//           Object[] ob = new Object[3];
+//           ob[0] = control.Category().getString(1);
+//           kategoriitem.addItem(""+ob[0]);
+//       } catch (Exception e) {
+//       }
+//    }
 
     public SearchBook() {
         initComponents();
         control = new SearchController(this);
-        pilcat();
 
+    }
+    
+    public void tampcat(){
+        listcat = control.listKat();
+        for (SearchModel data : listcat) {
+            cbkat.addItem(data.getId_kategori()+" - "+data.getNamaKategori());
+        }
     }
     
  
@@ -54,7 +66,7 @@ private SearchController control;
         nama_buku = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         pengarang = new javax.swing.JComboBox<>();
-        kategoriitem = new javax.swing.JComboBox<>();
+        cbkat = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         penerbit = new javax.swing.JComboBox<>();
         tahun_terbit = new javax.swing.JComboBox<>();
@@ -83,10 +95,10 @@ private SearchController control;
 
         pengarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        kategoriitem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-" }));
-        kategoriitem.addActionListener(new java.awt.event.ActionListener() {
+        cbkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-" }));
+        cbkat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kategoriitemActionPerformed(evt);
+                cbkatActionPerformed(evt);
             }
         });
 
@@ -127,7 +139,7 @@ private SearchController control;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kategoriitem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbkat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -148,7 +160,7 @@ private SearchController control;
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(pengarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kategoriitem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbkat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -228,9 +240,9 @@ private SearchController control;
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void kategoriitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kategoriitemActionPerformed
+    private void cbkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkatActionPerformed
    
-    }//GEN-LAST:event_kategoriitemActionPerformed
+    }//GEN-LAST:event_cbkatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,6 +280,7 @@ private SearchController control;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbkat;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -277,7 +290,6 @@ private SearchController control;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> kategoriitem;
     private javax.swing.JTable listBuku;
     private javax.swing.JTextField nama_buku;
     private javax.swing.JComboBox<String> penerbit;

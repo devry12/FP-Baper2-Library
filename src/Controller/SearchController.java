@@ -7,8 +7,8 @@ package Controller;
 
 import Model.SearchModel;
 import View.SearchBook;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
+
 
 /**
  *
@@ -22,10 +22,9 @@ public class SearchController {
         this.view = view;
         model = new SearchModel();
     }
+
     
-    public ResultSet Category() throws SQLException{
+    public List listKat(){
         return model.categori();
     }
-    
-    
 }
