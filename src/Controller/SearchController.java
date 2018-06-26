@@ -26,5 +26,12 @@ public class SearchController {
     
     public List listKat(){
         return model.categori();
+    }    
+    public List listpengarang(){
+        return model.pengarang();
     }
+    public List listpenerbit(){
+        return model.penerbit();
+    }
+    
 }

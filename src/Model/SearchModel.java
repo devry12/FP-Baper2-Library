@@ -8,6 +8,7 @@ package Model;
 import Config.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class SearchModel {
     private ResultSet rsSearch;
     private ResultSet rsCategory;
     private String query;
-    
+    private Boolean status;   
 
             public SearchModel(){
         config = new db();
@@ -103,15 +104,15 @@ public class SearchModel {
     
     public List categori(){
         query = "SELECT * FROM kategori";
-        
-        if (config.eksekusiQuery(query, true)) {
+        status = config.eksekusiQuery(query, true);
+        if (status) {
             rsCategory = config.getRs();
-            
+            kategori = new ArrayList<SearchModel>();
             try {
                 while(rsCategory.next()){
                     SearchModel model = new SearchModel();
-                    model.setNamaKategori(rsCategory.getString(1));
-                    model.setId_kategori(rsCategory.getString(2));
+                    model.setNamaKategori(rsCategory.getString(2));
+                    model.setId_kategori(rsCategory.getString(1));
                     kategori.add(model);
                 }
                 rsCategory.close();
@@ -126,4 +127,101 @@ public class SearchModel {
        return null;
     }
     
+    
+    //tampil pengarang
+    private String idpengarang;
+    private String namaPengarang;
+    private List<SearchModel> pengarang; 
+   
+
+    public String getIdpengarang() {
+        return idpengarang;
+    }
+
+    public void setIdpengarang(String idpengarang) {
+        this.idpengarang = idpengarang;
+    }
+
+    public String getNamaPengarang() {
+        return namaPengarang;
+    }
+
+    public void setNamaPengarang(String namaPengarang) {
+        this.namaPengarang = namaPengarang;
+    }
+    
+    private ResultSet rspengarang;
+    public List pengarang(){
+        query = "SELECT * FROM pengarang";
+        status = config.eksekusiQuery(query, true);
+        if (status) {
+            rspengarang = config.getRs();
+            pengarang = new ArrayList<SearchModel>();
+            try {
+                while(rspengarang.next()){
+                    SearchModel model = new SearchModel();
+                    model.setIdpengarang(rspengarang.getString(1));
+                    model.setNamaPengarang(rspengarang.getString(2));
+                    pengarang.add(model);
+                }
+                rspengarang.close();
+                return pengarang;
+            } catch (Exception e) {
+            }
+            
+        }else{
+            System.out.println("Ada masalah di query");
+        }
+        
+       return null;
+    }
+    
+    //tampil penerbit
+    private String idpenerbit;
+    private String namapenerbit;
+    private List<SearchModel> penerbits;
+    private ResultSet rspenerbit;
+    
+
+    public String getIdpenerbit() {
+        return idpenerbit;
+    }
+
+    public void setIdpenerbit(String idpenerbit) {
+        this.idpenerbit = idpenerbit;
+    }
+
+    public String getNamapenerbit() {
+        return namapenerbit;
+    }
+
+    public void setNamapenerbit(String namapenerbit) {
+        this.namapenerbit = namapenerbit;
+    }
+    
+    
+     public List penerbit(){
+        query = "SELECT * FROM penerbit";
+        status = config.eksekusiQuery(query, true);
+        if (status) {
+            rspenerbit = config.getRs();
+            penerbits = new ArrayList<SearchModel>();
+            try {
+                while(rspenerbit.next()){
+                    SearchModel model = new SearchModel();
+                    model.setIdpenerbit(rspenerbit.getString(1));
+                    model.setNamapenerbit(rspenerbit.getString(2));
+                    penerbits.add(model);
+                }
+                rspenerbit.close();
+                return penerbits;
+            } catch (Exception e) {
+            }
+            
+        }else{
+            System.out.println("Ada masalah di query");
+        }
+        
+       return null;
+    }
 }

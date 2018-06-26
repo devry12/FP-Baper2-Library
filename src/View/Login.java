@@ -33,30 +33,69 @@ private boolean status;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        Bungkus = new javax.swing.JPanel();
+        BungkusLogin = new javax.swing.JPanel();
+        LOGIN = new javax.swing.JLabel();
+        BungkusInputLogin = new javax.swing.JPanel();
+        Username = new javax.swing.JLabel();
+        Password = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
+        BungkusButton = new javax.swing.JPanel();
         login = new javax.swing.JButton();
-        cancle = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Login");
+        Bungkus.setBackground(new java.awt.Color(234, 234, 234));
 
-        jLabel2.setText("username");
+        BungkusLogin.setBackground(new java.awt.Color(0, 153, 204));
 
-        jLabel3.setText("Password");
+        LOGIN.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 36)); // NOI18N
+        LOGIN.setForeground(new java.awt.Color(255, 255, 255));
+        LOGIN.setText("LOGIN");
 
+        javax.swing.GroupLayout BungkusLoginLayout = new javax.swing.GroupLayout(BungkusLogin);
+        BungkusLogin.setLayout(BungkusLoginLayout);
+        BungkusLoginLayout.setHorizontalGroup(
+            BungkusLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BungkusLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LOGIN)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        BungkusLoginLayout.setVerticalGroup(
+            BungkusLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BungkusLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LOGIN, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        BungkusInputLogin.setBackground(new java.awt.Color(60, 60, 60));
+
+        Username.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+        Username.setForeground(new java.awt.Color(204, 204, 204));
+        Username.setText("Username");
+
+        Password.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+        Password.setForeground(new java.awt.Color(204, 204, 204));
+        Password.setText("Password");
+
+        username.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
             }
         });
 
+        password.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+
+        BungkusButton.setBackground(new java.awt.Color(60, 60, 60));
+
+        login.setBackground(new java.awt.Color(6, 104, 136));
+        login.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
         login.setText("Login");
         login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,54 +103,98 @@ private boolean status;
             }
         });
 
-        cancle.setText("Cancle");
-        cancle.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 14)); // NOI18N
+        cancel.setText("Cancel");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancleActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout BungkusButtonLayout = new javax.swing.GroupLayout(BungkusButton);
+        BungkusButton.setLayout(BungkusButtonLayout);
+        BungkusButtonLayout.setHorizontalGroup(
+            BungkusButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BungkusButtonLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(login)
+                .addGap(18, 18, 18)
+                .addComponent(cancel)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        BungkusButtonLayout.setVerticalGroup(
+            BungkusButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BungkusButtonLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(BungkusButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancel)
+                    .addComponent(login))
+                .addGap(0, 0, 0))
+        );
+
+        javax.swing.GroupLayout BungkusInputLoginLayout = new javax.swing.GroupLayout(BungkusInputLogin);
+        BungkusInputLogin.setLayout(BungkusInputLoginLayout);
+        BungkusInputLoginLayout.setHorizontalGroup(
+            BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BungkusButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Username)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        BungkusInputLoginLayout.setVerticalGroup(
+            BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(Username)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(Password)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(BungkusButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+
+        javax.swing.GroupLayout BungkusLayout = new javax.swing.GroupLayout(Bungkus);
+        Bungkus.setLayout(BungkusLayout);
+        BungkusLayout.setHorizontalGroup(
+            BungkusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BungkusLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BungkusInputLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        BungkusLayout.setVerticalGroup(
+            BungkusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BungkusLayout.createSequentialGroup()
+                .addComponent(BungkusLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(BungkusInputLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(login))
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Bungkus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(login)
-                    .addComponent(cancle))
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(Bungkus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -136,10 +219,10 @@ private boolean status;
         
     }//GEN-LAST:event_loginActionPerformed
 
-    private void cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancleActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_cancleActionPerformed
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,10 +260,14 @@ private boolean status;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancle;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel Bungkus;
+    private javax.swing.JPanel BungkusButton;
+    private javax.swing.JPanel BungkusInputLogin;
+    private javax.swing.JPanel BungkusLogin;
+    private javax.swing.JLabel LOGIN;
+    private javax.swing.JLabel Password;
+    private javax.swing.JLabel Username;
+    private javax.swing.JButton cancel;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
