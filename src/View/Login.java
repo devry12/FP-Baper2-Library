@@ -5,7 +5,8 @@
  */
 package View;
 
-import Controller.LoginController;
+import Controller.UserController;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Devry Kawiryan
  */
 public class Login extends javax.swing.JFrame {
-private LoginController control;
+private UserController control;
 
 private boolean status;
     /**
@@ -21,7 +22,7 @@ private boolean status;
      */
     public Login() {
         initComponents();
-        control =  new LoginController(this);
+        control =  new UserController(this);
     }
 
     /**
@@ -44,6 +45,9 @@ private boolean status;
         BungkusButton = new javax.swing.JPanel();
         login = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lkregister = new javax.swing.JLabel();
+        lkAdmin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -132,30 +136,68 @@ private boolean status;
                 .addGap(0, 0, 0))
         );
 
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Belum punya akun daftar ");
+        jLabel1.setToolTipText("");
+
+        lkregister.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        lkregister.setForeground(new java.awt.Color(51, 204, 255));
+        lkregister.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lkregister.setText("disini");
+        lkregister.setToolTipText("");
+        lkregister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lkregister.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lkregisterMouseClicked(evt);
+            }
+        });
+
+        lkAdmin.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        lkAdmin.setForeground(new java.awt.Color(51, 204, 255));
+        lkAdmin.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lkAdmin.setText("Admin");
+        lkAdmin.setToolTipText("");
+        lkAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lkAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lkAdminMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout BungkusInputLoginLayout = new javax.swing.GroupLayout(BungkusInputLogin);
         BungkusInputLogin.setLayout(BungkusInputLoginLayout);
         BungkusInputLoginLayout.setHorizontalGroup(
             BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(BungkusButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(BungkusInputLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Username)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                        .addGroup(BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lkregister))
+                            .addGroup(BungkusInputLoginLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Username)
+                                    .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 50, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BungkusInputLoginLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lkAdmin)))
+                .addContainerGap())
         );
         BungkusInputLoginLayout.setVerticalGroup(
             BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BungkusInputLoginLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
+                .addComponent(lkAdmin)
+                .addGap(22, 22, 22)
                 .addComponent(Username)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,9 +205,13 @@ private boolean status;
                 .addComponent(Password)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(36, 36, 36)
                 .addComponent(BungkusButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(BungkusInputLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lkregister))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout BungkusLayout = new javax.swing.GroupLayout(Bungkus);
@@ -209,11 +255,15 @@ private boolean status;
         String user = username.getText();
         String pass = password.getText();
         status = control.login(user, pass);
-        
+         JFrame parent = new JFrame();
         if (status) {
-            JOptionPane.showMessageDialog(null, "berhasil login");
+            JOptionPane.showMessageDialog(parent,"Selamat datang "+Public_Storage.username);
+            Main form = new Main();
+            form.setVisible(true);
+            this.hide();
         }else{
-            JOptionPane.showMessageDialog(null, "Gagal  login");
+            JOptionPane.showMessageDialog(parent, "Username atau password salah","Gagal Login",
+    JOptionPane.ERROR_MESSAGE);
         }
         
         
@@ -223,6 +273,20 @@ private boolean status;
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void lkregisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lkregisterMouseClicked
+        // TODO add your handling code here:
+        Register form = new Register();
+        form.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_lkregisterMouseClicked
+
+    private void lkAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lkAdminMouseClicked
+        // TODO add your handling code here:
+        AdminLogin form =  new AdminLogin();
+        form.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_lkAdminMouseClicked
 
     /**
      * @param args the command line arguments
@@ -268,6 +332,9 @@ private boolean status;
     private javax.swing.JLabel Password;
     private javax.swing.JLabel Username;
     private javax.swing.JButton cancel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lkAdmin;
+    private javax.swing.JLabel lkregister;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;

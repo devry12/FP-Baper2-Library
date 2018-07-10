@@ -8,6 +8,9 @@ package View;
 import Controller.SearchController;
 import Model.SearchModel;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +24,7 @@ public class SearchBook extends javax.swing.JFrame {
 private SearchController control;
 private String proses;
 private List<SearchModel> listcat;
+private List<SearchModel> listCariBuku;
 private List<SearchModel> listpengarang;
 private List<SearchModel> listpenerbits;
 private DefaultTableModel dtm;
@@ -30,32 +34,89 @@ private DefaultTableModel dtm;
 
     public SearchBook() {
         initComponents();
+        proses = "";
         control = new SearchController(this);
         tampcat();
         tamppengarang();
         tamppenerbit();
+        tamTahun();
+        RefreshBuku();
 
+    }
+    
+    public void RefreshBuku(){
+        
+    String namaBuku,kategori,pengarang,penerbit,tahunTerbit;
+        namaBuku    = nama_buku.getText();
+        kategori    = cbkat.getSelectedItem().toString();
+        pengarang   = cbpengarang.getSelectedItem().toString();
+        penerbit    = cbpenerbit.getSelectedItem().toString();
+        tahunTerbit = cmbTahunTerbit.getSelectedItem().toString();
+        
+        System.out.println(proses);
+        System.out.println(namaBuku+"-"+kategori+"-"+pengarang+"-"+penerbit+"-"+tahunTerbit);
+        if (proses.equalsIgnoreCase("")) {
+            listCariBuku = control.cariBuku("", "", "", "", "");
+            System.out.println("kosong jalan");
+        }else if (proses.equals("Cari")) {
+            listCariBuku = control.cariBuku(namaBuku, pengarang, penerbit, kategori, tahunTerbit);
+            System.out.println("isi jalan");
+        }
+        
+        dtm = (DefaultTableModel) listBuku.getModel(); 
+        dtm.setRowCount(0);
+        
+        System.out.println(listCariBuku);
+        for(SearchModel data : listCariBuku){
+            dtm.addRow(new Object[]{
+                data.getIdBuku(),
+                data.getNamaBuku(),
+                data.getKategory(),
+                data.getPenerbit(),
+                data.getThnTerbit(),
+                data.getPengarang(),
+                data.getLokasi()
+
+            });
+        }
+    }
+    
+    
+    public void tamTahun(){
+        cmbTahunTerbit.removeAllItems();
+        cmbTahunTerbit.addItem("");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+	Date date = new Date();
+        System.out.println(date);
+        int now = Integer.parseInt(dateFormat.format(date));
+        for (int i = now; i >= 1980 ; i--) {
+            cmbTahunTerbit.addItem(""+i);
+        }
     }
     
     public void tampcat(){
         listcat = control.listKat();
+        cbkat.removeAllItems();
+        cbkat.addItem("");
         for (SearchModel data : listcat) {
-            cbkat.addItem(data.getId_kategori()+ " - "+ data.getNamaKategori());
+            cbkat.addItem(data.getNamaKategori());
         }
     }
     public void tamppengarang(){
         listpengarang = control.listpengarang();
-        
+        cbpengarang.removeAllItems();
+        cbpengarang.addItem("");
         for (SearchModel data : listpengarang) {
-            cbpengarang.addItem(data.getIdpengarang()+ " - "+ data.getNamaPengarang());
+            cbpengarang.addItem(data.getNamaPengarang());
         }
     }
     
     public void tamppenerbit(){
         listpenerbits = control.listpenerbit();
-        
+        cbpenerbit.removeAllItems();
+        cbpenerbit.addItem("");
         for (SearchModel data : listpenerbits) {
-            cbpenerbit.addItem(data.getIdpenerbit()+ " - "+ data.getNamapenerbit());
+            cbpenerbit.addItem(data.getNamapenerbit());
         }
     }
     
@@ -83,11 +144,12 @@ private DefaultTableModel dtm;
         cbkat = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbpenerbit = new javax.swing.JComboBox<>();
-        tahun_terbit = new javax.swing.JComboBox<>();
+        cmbTahunTerbit = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnCari = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listBuku = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cari Buku");
@@ -138,9 +200,9 @@ private DefaultTableModel dtm;
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Pengarang");
 
-        cbpengarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih -" }));
+        cbpengarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
-        cbkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-" }));
+        cbkat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cbkat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbkatActionPerformed(evt);
@@ -151,18 +213,18 @@ private DefaultTableModel dtm;
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Penerbit");
 
-        cbpenerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih-" }));
+        cbpenerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
-        tahun_terbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010" }));
+        cmbTahunTerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tahun Terbit");
 
-        jButton2.setText("Cari");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCariActionPerformed(evt);
             }
         });
 
@@ -184,7 +246,7 @@ private DefaultTableModel dtm;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tahun_terbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbTahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,7 +256,7 @@ private DefaultTableModel dtm;
                         .addGap(26, 26, 26)
                         .addComponent(cbpengarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCari)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -214,11 +276,11 @@ private DefaultTableModel dtm;
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(cbpenerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tahun_terbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbTahunTerbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jButton2)))
+                        .addComponent(btnCari)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -230,7 +292,7 @@ private DefaultTableModel dtm;
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id Buku", "Judul Buku", "Kategori", "Penerbit", "Tahun terbit", "Pengarang", "Loakasi"
+                "Id Buku", "Judul Buku", "Kategori", "Penerbit", "Tahun terbit", "Pengarang", "Lokasi"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -246,16 +308,26 @@ private DefaultTableModel dtm;
             listBuku.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addContainerGap(117, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap(96, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(8, 8, 8)))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +336,8 @@ private DefaultTableModel dtm;
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,13 +362,24 @@ private DefaultTableModel dtm;
         // TODO add your handling code here:
     }//GEN-LAST:event_nama_bukuActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+       proses = "Cari";
+       RefreshBuku();
+       
+        
+    }//GEN-LAST:event_btnCariActionPerformed
 
     private void cbkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkatActionPerformed
    
     }//GEN-LAST:event_cbkatActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        Main form = new Main();
+        form.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,10 +417,12 @@ private DefaultTableModel dtm;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCari;
     private javax.swing.JComboBox<String> cbkat;
     private javax.swing.JComboBox<String> cbpenerbit;
     private javax.swing.JComboBox<String> cbpengarang;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> cmbTahunTerbit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -349,6 +435,5 @@ private DefaultTableModel dtm;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listBuku;
     private javax.swing.JTextField nama_buku;
-    private javax.swing.JComboBox<String> tahun_terbit;
     // End of variables declaration//GEN-END:variables
 }

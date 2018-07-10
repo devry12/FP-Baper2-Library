@@ -23,9 +23,33 @@ public class SearchModel {
     private String Kategory;
     private String Pengarang;
     private String penerbit;
-    private String ThnTerbit;
-    private ResultSet rsSearch;
+    private String ThnTerbit;    
+    private String IdBuku;
+    private String idKategori;
+    private String idPengarang;
+    private String idPenerbit;
+
+    public String getIdBuku() {
+        return IdBuku;
+    }
+
+    public void setIdBuku(String IdBuku) {
+        this.IdBuku = IdBuku;
+    }
+
+    public String getLokasi() {
+        return Lokasi;
+    }
+
+    public void setLokasi(String Lokasi) {
+        this.Lokasi = Lokasi;
+    }
+    private String Lokasi;
+
+    private ResultSet rsSearch;    
+    private ResultSet rsCariBuku;
     private ResultSet rsCategory;
+    private List<SearchModel> cariSemuaBuku; 
     private String query;
     private Boolean status;   
 
@@ -74,6 +98,31 @@ public class SearchModel {
     public void setThnTerbit(String ThnTerbit) {
         this.ThnTerbit = ThnTerbit;
     }
+
+    public String getIdKategori() {
+        return idKategori;
+    }
+
+    public void setIdKategori(String idKategori) {
+        this.idKategori = idKategori;
+    }
+
+    public String getIdPengarang() {
+        return idPengarang;
+    }
+
+    public void setIdPengarang(String idPengarang) {
+        this.idPengarang = idPengarang;
+    }
+
+    public String getIdPenerbit() {
+        return idPenerbit;
+    }
+
+    public void setIdPenerbit(String idPenerbit) {
+        this.idPenerbit = idPenerbit;
+    }
+    
     
     
     
@@ -216,6 +265,48 @@ public class SearchModel {
                 rspenerbit.close();
                 return penerbits;
             } catch (Exception e) {
+            }
+            
+        }else{
+            System.out.println("Ada masalah di query");
+        }
+        
+       return null;
+    }
+     
+     
+     
+     //cari buku
+     public List caribuku(String NamaBuku,String Pengarang,String penerbit,String Kategory,String ThnTerbit){
+        query = "SELECT buku.*,kategori.*,pengarang.*,penerbit.* FROM buku,kategori,penerbit,pengarang WHERE buku.id_kategori = kategori.id_kategori AND buku.id_penerbit = penerbit.id_penerbit AND buku.id_pengarang = pengarang.id_pengarang AND buku.judul_buku LIKE '%"+NamaBuku+"%' AND kategori.nama_kategori LIKE '%"+Kategory+"%' AND pengarang.nama_pengarang LIKE '%"+Pengarang+"%' AND penerbit.nama_penerbit LIKE '%"+penerbit+"%' AND buku.tahun_terbit LIKE '%"+ThnTerbit+"%'";
+                System.out.println(query);
+
+        status = config.eksekusiQuery(query, true);
+        if (status) {
+            rsCariBuku = config.getRs();
+            cariSemuaBuku = new ArrayList<SearchModel>();
+            try {
+                while(rsCariBuku.next()){
+                    SearchModel model = new SearchModel();
+                    model.setIdBuku(rsCariBuku.getString("id_buku"));
+                    model.setNamaBuku(rsCariBuku.getString("judul_buku"));
+                    model.setKategory(rsCariBuku.getString("nama_kategori"));
+                    model.setPenerbit(rsCariBuku.getString("nama_penerbit"));
+                    model.setPengarang(rsCariBuku.getString("nama_pengarang"));
+                    model.setThnTerbit(rsCariBuku.getString("tahun_terbit"));
+                    model.setLokasi(rsCariBuku.getString("no_rak"));
+                    model.setIdKategori(rsCariBuku.getString("id_kategori"));
+                    model.setIdPenerbit(rsCariBuku.getString("id_penerbit"));
+                    model.setIdPengarang(rsCariBuku.getString("id_pengarang"));
+                    
+
+                    cariSemuaBuku.add(model);
+                }
+                System.out.println(cariSemuaBuku);
+                rsCariBuku.close();
+                return cariSemuaBuku;
+            } catch (Exception e) {
+                System.out.println("Gagal mendapatkan data");
             }
             
         }else{
